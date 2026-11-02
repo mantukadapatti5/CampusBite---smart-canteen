@@ -1,5 +1,7 @@
 # Smart Canteen — College Canteen Ordering & Queue Management System
 
+Repository: `CampusBite---smart-canteen`
+
 Eliminates canteen queues by letting students/staff order ahead, and
 spreads pickups across time slots automatically so everyone doesn't show
 up at the same 5 minutes.
