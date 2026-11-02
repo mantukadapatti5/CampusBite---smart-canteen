@@ -1,0 +1,80 @@
+{
+ "run_at": "2026-11-02T06:37:02.309Z",
+ "node": "v24.12.0",
+ "pass": 12,
+ "total": 12,
+ "results": [
+  {
+   "id": "ML-01",
+   "title": "Dataset generation is reproducible (same seed -> identical CSV files)",
+   "ok": true,
+   "detail": "rows 4380 / 13505 / 6000"
+  },
+  {
+   "id": "ML-02",
+   "title": "Generated data is valid (ranges, 37 items, 6 categories, no negatives)",
+   "ok": true,
+   "detail": "37 items, 6 categories, 12 opening hours, no negative values"
+  },
+  {
+   "id": "ML-03",
+   "title": "Training and evaluation complete and the model file round-trips",
+   "ok": true,
+   "detail": "trained in 1.8s; reload gives identical predictions"
+  },
+  {
+   "id": "ML-04",
+   "title": "Held-out R2 of the selected model is at least 0.80 for every task",
+   "ok": true,
+   "detail": "crowd random_forest R2=0.8621; demand random_forest R2=0.8852; wait ridge R2=0.8535"
+  },
+  {
+   "id": "ML-05",
+   "title": "The selected model has lower RMSE than the old (non-ML) method on every task",
+   "ok": true,
+   "detail": "RMSE reduction: crowd 34.3%, demand 30.2%, wait 84.2%"
+  },
+  {
+   "id": "ML-06",
+   "title": "Crowd forecast behaves sensibly (peak at lunch, Sunday/holiday low, exam and rain effects)",
+   "ok": true,
+   "detail": "Tue 395, Sun 65, holiday 46, rain 424; peak 13:00"
+  },
+  {
+   "id": "ML-07",
+   "title": "Demand forecast reacts to weather and weekday (rain: tea up, juice down; Friday biryani up)",
+   "ok": true,
+   "detail": "Masala Tea 58.2 dry vs 75.3 rain; Watermelon Juice 12.2 vs 11.3; Chicken Biryani Wed 28.4 vs Fri 29.9"
+  },
+  {
+   "id": "ML-08",
+   "title": "A new menu item with no history gets a finite, non-negative forecast (category fallback)",
+   "ok": true,
+   "detail": "forecast 27.3 units"
+  },
+  {
+   "id": "ML-09",
+   "title": "Stock flags are correct (restock when stock < forecast, unavailable when off the menu)",
+   "ok": true,
+   "detail": "restock / ok / unavailable"
+  },
+  {
+   "id": "ML-10",
+   "title": "Wait-time prediction grows with queue length and prep time, and is never below 1 minute",
+   "ok": true,
+   "detail": "orders ahead 0/5/10/15 -> 4/9/15/21 min"
+  },
+  {
+   "id": "ML-11",
+   "title": "The overview sent to the browser never contains the raw trained model",
+   "ok": true,
+   "detail": "payload 3 KB, metrics only"
+  },
+  {
+   "id": "ML-12",
+   "title": "Selected models are re-fitted and saved; saved file loads at start-up",
+   "ok": true,
+   "detail": "crowd=random_forest, demand=random_forest, wait=ridge"
+  }
+ ]
+}
