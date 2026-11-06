@@ -16,6 +16,7 @@ export default function ManagerLayout() {
           </SidebarSection>
           <SidebarSection title="Operations">
             <SidebarLink to="/manager/orders">🛒 All Orders</SidebarLink>
+            <SidebarLink to="/manager/sales">🧾 Sales & Orders</SidebarLink>
             <SidebarLink to="/manager/transactions">💰 Transactions</SidebarLink>
             <SidebarLink to="/manager/staff">👨‍🍳 Kitchen Staff</SidebarLink>
           </SidebarSection>

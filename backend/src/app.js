@@ -17,6 +17,7 @@ const announcementRoutes = require('./routes/announcementRoutes');
 const mlRoutes = require('./routes/mlRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 const transactionRoutes = require('./routes/transactionRoutes');
+const salesRoutes = require('./routes/salesRoutes');
 
 const app = express();
 
@@ -50,6 +51,7 @@ app.use('/api/announcements', announcementRoutes);
 app.use('/api/ml', mlRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/transactions', transactionRoutes);
+app.use('/api/sales', salesRoutes);
 
 // 404 handler
 app.use((req, res) => res.status(404).json({ error: 'Route not found' }));

@@ -14,6 +14,7 @@ import KitchenLayout from './layouts/KitchenLayout.jsx';
 import ManagerLayout from './layouts/ManagerLayout.jsx';
 import ManagerMlInsights from './pages/ManagerMlInsights.jsx';
 import ManagerTransactions from './pages/ManagerTransactions.jsx';
+import ManagerSales from './pages/ManagerSales.jsx';
 import Transactions from './pages/Transactions.jsx';
 import PaymentSession from './pages/PaymentSession.jsx';
 import PayGateway from './pages/PayGateway.jsx';
@@ -104,6 +105,7 @@ export default function App() {
           <Route path="/manager/reports" element={<AdminReports />} />
           <Route path="/manager/ml-insights" element={<ManagerMlInsights />} />
           <Route path="/manager/transactions" element={<ManagerTransactions />} />
+          <Route path="/manager/sales" element={<ManagerSales />} />
           <Route path="/manager/settings" element={<AdminSettings />} />
           <Route path="/manager/profile" element={<Profile />} />
         </Route>

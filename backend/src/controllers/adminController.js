@@ -2,17 +2,22 @@ const bcrypt = require('bcryptjs');
 const { Sequelize } = require('sequelize');
 const { sequelize, Order, OrderItem, MenuItem, User } = require('../models');
 const { Op, QueryTypes } = require('sequelize');
+const { parseRange } = require('../utils/dateRange');
+
+// "Today" starts at midnight in the canteen's time zone (APP_TZ, default Asia/Kolkata), not at the
+// server's midnight (the Docker container runs in UTC, which would reset the day at 5:30 AM IST).
+const startOfCanteenDay = () => parseRange({}, 1).start;
 
 exports.dashboard = async (req, res) => {
-  const startOfDay = new Date();
-  startOfDay.setHours(0, 0, 0, 0);
+  const startOfDay = startOfCanteenDay();
 
   const todayOrders = await Order.findAll({
     where: { created_at: { [Op.gte]: startOfDay } },
   });
 
+  // revenue = paid orders that were not cancelled / rejected (those are refunded)
   const revenueToday = todayOrders
-    .filter((o) => o.payment_status === 'paid' || o.status !== 'cancelled')
+    .filter((o) => o.payment_status === 'paid' && !['cancelled', 'rejected'].includes(o.status))
     .reduce((sum, o) => sum + Number(o.total_amount), 0);
 
   const statusCounts = todayOrders.reduce((acc, o) => {
@@ -53,8 +58,7 @@ exports.dashboard = async (req, res) => {
 // Kitchen role: order-status counts only — deliberately excludes revenue/
 // financial data, which is a manager/admin concern, not a kitchen one.
 exports.kitchenDashboard = async (req, res) => {
-  const startOfDay = new Date();
-  startOfDay.setHours(0, 0, 0, 0);
+  const startOfDay = startOfCanteenDay();
 
   const todayOrders = await Order.findAll({
     where: { created_at: { [Op.gte]: startOfDay } },
@@ -83,15 +87,16 @@ exports.reports = async (req, res) => {
 
   const daily = await sequelize.query(
     `SELECT
-       DATE(created_at) AS day,
+       DATE(created_at AT TIME ZONE :tz) AS day,
        COUNT(*) AS order_count,
        SUM(total_amount) AS revenue
      FROM orders
      WHERE created_at BETWEEN :start AND :end
-       AND status != 'cancelled'
-     GROUP BY DATE(created_at)
+       AND status NOT IN ('cancelled', 'rejected')
+       AND payment_status = 'paid'
+     GROUP BY DATE(created_at AT TIME ZONE :tz)
      ORDER BY day ASC`,
-    { replacements: { start: startDate, end: endDate }, type: QueryTypes.SELECT }
+    { replacements: { start: startDate, end: endDate, tz: process.env.APP_TZ || 'Asia/Kolkata' }, type: QueryTypes.SELECT }
   );
 
   const leastOrdered = await OrderItem.findAll({

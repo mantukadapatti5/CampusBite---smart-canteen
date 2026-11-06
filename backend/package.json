@@ -12,7 +12,8 @@
     "ml:report": "node src/ml/cli.js report",
     "ml:test": "node src/ml/tests/ml.test.js",
     "test:login": "node src/tests/login.test.js",
-    "test:payments": "node src/tests/payments.test.js"
+    "test:payments": "node src/tests/payments.test.js",
+    "test:sales": "node src/tests/sales.test.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

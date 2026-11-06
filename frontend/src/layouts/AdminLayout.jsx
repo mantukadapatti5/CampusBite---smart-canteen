@@ -20,6 +20,7 @@ export default function AdminLayout() {
           <SidebarSection title="Canteen Operations (shared with Manager)">
             <SidebarLink to="/manager/menu">🍽️ Menu Management</SidebarLink>
             <SidebarLink to="/manager/orders">🛒 All Orders</SidebarLink>
+            <SidebarLink to="/manager/sales">🧾 Sales & Orders</SidebarLink>
             <SidebarLink to="/manager/transactions">💰 Transactions</SidebarLink>
             <SidebarLink to="/manager/coupons">🎁 Coupons & Offers</SidebarLink>
             <SidebarLink to="/manager/feedback">⭐ Feedback</SidebarLink>

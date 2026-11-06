@@ -38,7 +38,8 @@ function initSocket(httpServer) {
 
     if (socket.user) {
       socket.join(`user:${socket.user.id}`);
-      if (['admin', 'canteen_staff'].includes(socket.user.role)) {
+      // managers watch live orders too (the Sales & Orders page refreshes itself from these events)
+      if (['admin', 'manager', 'canteen_staff'].includes(socket.user.role)) {
         socket.join('kitchen');
       }
     }

@@ -363,3 +363,8 @@ An order is created **only after the payment succeeds** – failed, expired or c
 and are recorded as failed transactions. Students see everything under **Student portal → Transactions**; managers
 analyse all money in/out under **Manager portal → Transactions** (filters, charts, CSV export).
 Details: `docs/Payments.md`. Checks: `npm run test:payments` (backend) and `node scripts/check-payments.mjs` (live).
+
+## 🧾 Sales & Orders (Manager portal)
+Manager portal → **Sales & Orders** lists every order with the **student, food × quantity, token and amount**, and analyses
+sales by **day / week / month / year** (revenue, top foods, busy hours, top students, payment methods) with CSV export.
+Details: [`docs/Sales_Analysis.md`](docs/Sales_Analysis.md). Tests: `npm run test:sales` in `backend/`.
